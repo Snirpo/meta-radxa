@@ -42,10 +42,10 @@ do_deploy_append() {
 	if [ -f "${WORKDIR}/uEnv.txt" ]; then
 		install -D -m 644 ${WORKDIR}/uEnv.txt ${DEPLOYDIR}/
 	fi
-	if [ -f "${WORKDIR}/boot.scr" ]; then
+	if [ -f "${B}/boot.scr" ]; then
 		install -D -m 644 ${WORKDIR}/boot.scr ${DEPLOYDIR}/
 	fi
-	if [ -f "${WORKDIR}/boot.cmd" ]; then
+	if [ -f "${B}/boot.cmd" ]; then
 		install -D -m 644 ${WORKDIR}/boot.cmd ${DEPLOYDIR}/
 	fi
 }
