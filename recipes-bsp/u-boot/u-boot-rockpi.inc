@@ -31,8 +31,7 @@ do_compile_append () {
 	if [ ${SPL_BINARY} ]; then
 		cp ${B}/spl/${SPL_BINARY} ${B}/
 	fi
-	if [ -f "${WORKDIR}/boot.cmd" ]; then
-		cp ${WORKDIR}/boot.cmd ${B}/boot.cmd
+	if [ -f "${B}/boot.cmd" ]; then
 		${B}/tools/mkimage -C none -A arm -T script -d ${B}/boot.cmd ${B}/boot.scr
 	fi
 }
