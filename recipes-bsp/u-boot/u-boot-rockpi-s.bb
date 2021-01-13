@@ -9,8 +9,8 @@ SRC_URI = " \
 	git://github.com/radxa/u-boot.git;branch=stable-4.4-rockpis; \
 	file://0001-Use-local-command.h-file-instead-of-system-file.patch \
 	file://0001-Makefile-disable-gcc9-s-address-of-packed-member-war.patch \
-	file://${MACHINE}/boot.cmd \
-	file://${MACHINE}/uEnv.txt \
+	file://boot.cmd \
+	file://uEnv.txt \
 "
 
 SRCREV = "233a23e3ed0b3e5250253ee455c3c5df2080f99c"

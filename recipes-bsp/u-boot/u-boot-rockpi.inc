@@ -31,16 +31,16 @@ do_compile_append () {
 	if [ ${SPL_BINARY} ]; then
 		cp ${B}/spl/${SPL_BINARY} ${B}/
 	fi
-	if [ -f "${WORKDIR}/${MACHINE}/boot.cmd" ]; then
-		cp ${WORKDIR}/${MACHINE}/boot.cmd ${WORKDIR}/boot.cmd
-		${B}/tools/mkimage -C none -A arm -T script -d ${WORKDIR}/boot.cmd ${WORKDIR}/boot.scr
+	if [ -f "${WORKDIR}/boot.cmd" ]; then
+		cp ${WORKDIR}/boot.cmd ${B}/boot.cmd
+		${B}/tools/mkimage -C none -A arm -T script -d ${B}/boot.cmd ${B}/boot.scr
 	fi
 }
 
 do_deploy_append() {
 	cp -a ${B}/tools/mkimage ${DEPLOY_DIR_IMAGE}
-	if [ -f "${WORKDIR}/${MACHINE}/uEnv.txt" ]; then
-		install -D -m 644 ${WORKDIR}/${MACHINE}/uEnv.txt ${DEPLOYDIR}/
+	if [ -f "${WORKDIR}/uEnv.txt" ]; then
+		install -D -m 644 ${WORKDIR}/uEnv.txt ${DEPLOYDIR}/
 	fi
 	if [ -f "${WORKDIR}/boot.scr" ]; then
 		install -D -m 644 ${WORKDIR}/boot.scr ${DEPLOYDIR}/
