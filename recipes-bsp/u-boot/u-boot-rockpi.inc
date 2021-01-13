@@ -9,6 +9,8 @@ DEPENDS = "dtc-native bc-native swig-native bison-native"
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
 
+UBOOT_INITIAL_ENV = ""
+
 do_configure () {
     if [ -z "${UBOOT_CONFIG}" ]; then
         if [ -n "${UBOOT_MACHINE}" ]; then
