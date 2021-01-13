@@ -22,10 +22,10 @@ RDEPENDS_${PN} += "bluez5"
 
 do_install() {
 	install -d ${D}${systemd_system_unitdir}
-	install -m 0644 ${WORKDIR}/${MACHINE}/install-module-hci-uart.service ${D}${systemd_system_unitdir}
-	install -m 0644 ${WORKDIR}/${MACHINE}/rtl8723ds-btfw-load.service ${D}${systemd_system_unitdir} 
+	install -m 0644 ${WORKDIR}/install-module-hci-uart.service ${D}${systemd_system_unitdir}
+	install -m 0644 ${WORKDIR}/rtl8723ds-btfw-load.service ${D}${systemd_system_unitdir}
 	install -d ${D}${bindir}
-	install -m 0755 ${WORKDIR}/${MACHINE}/install_module_hci_uart ${D}${bindir}/install_module_hci_uart
+	install -m 0755 ${WORKDIR}/install_module_hci_uart ${D}${bindir}/install_module_hci_uart
 }
 
 SYSTEMD_SERVICE_${PN} = "install-module-hci-uart.service rtl8723ds-btfw-load.service"
