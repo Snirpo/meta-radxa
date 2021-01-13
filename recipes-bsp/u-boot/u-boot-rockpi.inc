@@ -1,4 +1,4 @@
-require u-boot-zeus.inc
+require recipes-bsp/u-boot/u-boot.inc
 
 HOMEPAGE = "https://github.com/radxa/u-boot"
 LICENSE = "GPLv2+"
