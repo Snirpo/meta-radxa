@@ -6,6 +6,22 @@ COMPATIBLE_MACHINE = "(px30|rk3036|rk3066|rk3188|rk3288|rk3328|rk3399|rk3308|rk3
 SECTION = "bootloaders"
 DEPENDS = "dtc-native bc-native swig-native bison-native"
 
+S = "${WORKDIR}/git"
+B = "${WORKDIR}/build"
+
+do_configure () {
+    if [ -z "${UBOOT_CONFIG}" ]; then
+        if [ -n "${UBOOT_MACHINE}" ]; then
+            oe_runmake -C ${S} O=${B} ${UBOOT_MACHINE}
+        else
+            oe_runmake -C ${S} O=${B} oldconfig
+        fi
+        echo ${PWD}
+        ${S}/scripts/kconfig/merge_config.sh -m .config ${@" ".join(find_cfgs(d))}
+        cml1_do_configure
+    fi
+}
+
 do_compile_prepend () {
 	export STAGING_INCDIR=${STAGING_INCDIR_NATIVE};
 	export STAGING_LIBDIR=${STAGING_LIBDIR_NATIVE};
@@ -27,9 +43,9 @@ do_deploy_append() {
 		install -D -m 644 ${WORKDIR}/uEnv.txt ${DEPLOYDIR}/
 	fi
 	if [ -f "${B}/boot.scr" ]; then
-		install -D -m 644 ${WORKDIR}/boot.scr ${DEPLOYDIR}/
+		install -D -m 644 ${B}/boot.scr ${DEPLOYDIR}/
 	fi
 	if [ -f "${B}/boot.cmd" ]; then
-		install -D -m 644 ${WORKDIR}/boot.cmd ${DEPLOYDIR}/
+		install -D -m 644 ${B}/boot.cmd ${DEPLOYDIR}/
 	fi
 }
