@@ -2,6 +2,8 @@ DESCRIPTION = "Linux kernel for RockPi-S"
 
 require recipes-kernel/linux/linux-yocto.inc
 
+KERNEL_EXTRA_ARGS_append = " KCFLAGS=-w"
+
 # We need mkimage for the overlays
 DEPENDS += "openssl-native u-boot-mkimage-radxa-native"
 
@@ -24,11 +26,13 @@ PV = "${LINUX_VERSION}"
 COMPATIBLE_MACHINE = "(rk3036|rk3066|rk3288|rk3328|rk3399|rk3308)"
 deltask kernel_configme
 
+FILES_${KERNEL_PACKAGE_NAME}-devicetree_append = " /boot/overlays"
+
 do_compile_append() {
 	oe_runmake dtbs
 }
 
-do_deploy_append() {
-	install -d ${DEPLOYDIR}/overlays
-	install -m 644 ${WORKDIR}/linux-rockpi_s_rk3308-standard-build/arch/arm64/boot/dts/rockchip/overlay/* ${DEPLOYDIR}/overlays
+do_install_append() {
+	install -d ${D}/boot/overlays
+	install -m 644 ${WORKDIR}/linux-$(echo ${MACHINE} | tr - _)-standard-build/arch/arm64/boot/dts/rockchip/overlay/* ${D}/boot/overlays
 }
